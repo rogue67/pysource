@@ -68,18 +68,23 @@ def reverse(s):
         n = len(s)
         return s[-1] + reverse(s[-n:-1])
 
-stack = []                                  ##ÖVN 14
+stack = []                                         ##ÖVN 14
 def paren_match(txt):
-    if len(stack) == 0 and len(txt) == 0:
+    if len(txt) == 0 and len(stack) == 0:
         return True
+    elif txt == "" and stack != 0:
+        return False
     else:
         if txt[0] == "(":
             stack.append(txt[0])
-        elif txt[0] == ")" and len(stack) != 0:
+            return paren_match(txt[1:])
+        elif len(stack) != 0 and txt[0] == ")":
             stack.pop()
+            return paren_match(txt[1:])
         else:
             return False
-        paren_match(txt[1:])
+        
+ 
                 
         
  

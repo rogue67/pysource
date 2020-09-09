@@ -134,8 +134,8 @@ class RecursionTestCase(unittest.TestCase):
         resultat = min_rekursion.reverse(s)
         self.assertEqual(resultat,ans)
 
-    def test_paren_match_left(self):                     ##ÖVN 14
-        txt = "(()"
+    def test_paren_match_left_false(self):                  ##ÖVN 14
+        txt = "((())"
         match = min_rekursion.paren_match(txt)
         self.assertEqual(match,False)
 
@@ -149,7 +149,7 @@ class RecursionTestCase(unittest.TestCase):
         match = min_rekursion.paren_match(txt)
         self.assertEqual(match,True)
 
-    def test_paren_match_right(self):
+    def test_paren_match_right_false(self):
         txt = ")"
         match = min_rekursion.paren_match(txt)
         self.assertEqual(match,False)
