@@ -15,7 +15,7 @@ def j_finds(s):          ##ÖVN 2
         else:
             return j_finds(s[1:])
     
-def finds(teck,txt):
+def finds(teck,txt):                    ##ÖVN 4
     if txt == "":
         return  False
     elif txt[0] == teck:
@@ -32,13 +32,13 @@ def findsNr(teck,txt):
     else:
         return 0
 
-def power(x,n):
+def power(x,n):                 ##ÖVN 5
     if n == 0:
         return 1
     else:
         return x*power(x,n-1)
 
-def multiply(m,n):
+def multiply(m,n):              ##ÖVN 6
     if n > m:
         tmp = n
         n = m
@@ -48,20 +48,20 @@ def multiply(m,n):
     else:
         return m + multiply(m,n-1)
     
-def harmonic(n):
+def harmonic(n):                ##ÖVN 8
     if n == 1:
         return 1
     else:
         return 1/n + harmonic(n-1)
 
-def largest(a):
+def largest(a):                 ##ÖVN 9
     if len(a) == 1:
         return a[0]
     else:
         stor = largest(a[1:])
         return stor if stor > a[0] else a[0]
 
-def reverse(s):         
+def reverse(s):                         ##ÖVN 10    
     if len(s) == 1:
         return s[-1]
     else:
@@ -72,7 +72,7 @@ stack = []                                         ##ÖVN 14
 def paren_match(txt):
     if len(txt) == 0 and len(stack) == 0:
         return True
-    elif txt == "" and stack != 0:
+    elif len(txt) == 0 and len(stack) != 0:
         return False
     else:
         if txt[0] == "(":
