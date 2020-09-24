@@ -8,7 +8,16 @@ class CalculatorTestCase(unittest.TestCase):
         line = "sin(2)*sin(2) + cos(2)*cos(2)"
         wtok = TokenizeWrapper( line )
         result = my_calculator.assignment( wtok )
-        self.assertEqual(result , 1.0 )  
+        self.assertEqual(result , 1.0 )
+
+    def test_assignment_visa_variabel(self):
+        line = "3 = a"
+        line1 = "a"
+        wtok = TokenizeWrapper( line )
+        result = my_calculator.assignment( wtok )
+        wtok1 = TokenizeWrapper(line1)
+        self.assertEqual( my_calculator.assignment(wtok1) , 3 )
+
 
     def test_assignment_z(self):
         line = "1 + 2 + 3 = z"
@@ -43,7 +52,7 @@ class CalculatorTestCase(unittest.TestCase):
         self.assertEqual(my_calculator.vardict.get('y') , 3 )
         self.assertEqual(my_calculator.vardict.get('z') , 3 )
         self.assertEqual(my_calculator.vardict.get('a') , 5 )
-        
+
     def test_expression_sju(self):
         line = "7"
         wtok = TokenizeWrapper( line )
@@ -73,17 +82,20 @@ class CalculatorTestCase(unittest.TestCase):
         wtok = TokenizeWrapper( line )
         result = my_calculator.term( wtok )
         self.assertEqual( result , 6 )
-        
+
+
+    def test_term_sinus(self) :
+        line = "sin(2)*sin(2)"
+        wtok = TokenizeWrapper( line )
+        result = my_calculator.term( wtok )
+        self.assertEqual( result , math.sin(2)*math.sin(2) )
+
     def test_term_div(self) :
         line = "2 / 2"
         wtok = TokenizeWrapper( line )
         result = my_calculator.term( wtok )
         self.assertEqual( result , 1 )
         
-##    def test_term_div_by_zero(self) :
-##        line = "2 / 0"
-##        wtok = TokenizeWrapper( line )
-##        self.assertRaises( ZeroDivisionError , my_calculator.term, wtok )
 
     def test_function_true(self):
         line = 'sin';
@@ -95,6 +107,10 @@ class CalculatorTestCase(unittest.TestCase):
         wtok = TokenizeWrapper( line )
         self.assertFalse( my_calculator.is_function( wtok ),msg=None )
 
+    def test_factor_funktion_utan_parantes(self):
+        line = "sin 4"
+        wtok = TokenizeWrapper( line )
+        self.assertRaises( my_calculator.CalculatorException , my_calculator.factor, wtok )
 
     def test_factor_sin(self):
         line = 'sin( 10 )'
@@ -108,10 +124,10 @@ class CalculatorTestCase(unittest.TestCase):
         result = my_calculator.factor( wtok )
         self.assertEqual( result , math.cos(math.pi))
 
-##    def test_factor_log(self):
-##        line = "log( -1 )"
-##        wtok = TokenizeWrapper( line )
-##        self.assertRaises( ValueError, my_calculator.factor( wtok ) )
+    def test_factor_log_negativ_input(self):
+        line = "log( -1 )"
+        wtok = TokenizeWrapper( line )
+        self.assertRaises( my_calculator.CalculatorException , my_calculator.factor, wtok )
 
     def test_factor_log(self):
         line = "log( 2.718281828459045 )"
@@ -131,6 +147,10 @@ class CalculatorTestCase(unittest.TestCase):
         result = my_calculator.factor( wtok )
         self.assertEqual( result , -4.0)        
 
-          
+    def test_statement_quit(self):
+        line = "quit"
+        wtok = TokenizeWrapper( line )
+        self.assertRaises(SystemExit, my_calculator.statement, wtok)
+
 if __name__ == '__main__':
     unittest.main()
