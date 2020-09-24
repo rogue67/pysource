@@ -18,7 +18,6 @@ class CalculatorTestCase(unittest.TestCase):
         wtok1 = TokenizeWrapper(line1)
         self.assertEqual( my_calculator.assignment(wtok1) , 3 )
 
-
     def test_assignment_z(self):
         line = "1 + 2 + 3 = z"
         wtok = TokenizeWrapper( line )
@@ -82,7 +81,6 @@ class CalculatorTestCase(unittest.TestCase):
         wtok = TokenizeWrapper( line )
         result = my_calculator.term( wtok )
         self.assertEqual( result , 6 )
-
 
     def test_term_sinus(self) :
         line = "sin(2)*sin(2)"
