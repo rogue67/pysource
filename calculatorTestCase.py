@@ -4,6 +4,17 @@ from tokenizer import TokenizeWrapper
 
 class CalculatorTestCase(unittest.TestCase):
 
+
+    def test_assignment_dubbel_parantes_V(self):
+        line = "((1+3)"
+        wtok = TokenizeWrapper( line )
+        self.assertRaises(my_calculator.TokenError, my_calculator.assignment , wtok)
+
+    def test_assignment_saknar_parantes(self):
+        line = "1+(2+7 = h"
+        wtok = TokenizeWrapper( line )
+        self.assertRaises(my_calculator.TokenError, my_calculator.assignment , wtok)
+
     def test_assignment_pythagoras(self):
         line = "sin(2)*sin(2) + cos(2)*cos(2)"
         wtok = TokenizeWrapper( line )
@@ -105,45 +116,50 @@ class CalculatorTestCase(unittest.TestCase):
         wtok = TokenizeWrapper( line )
         self.assertFalse( my_calculator.is_function( wtok ),msg=None )
 
-    def test_factor_funktion_utan_parantes(self):
+    def test_assingment_funktion_utan_parantes(self):
         line = "sin 4"
         wtok = TokenizeWrapper( line )
-        self.assertRaises( my_calculator.CalculatorException , my_calculator.factor, wtok )
+        self.assertRaises( my_calculator.CalculatorException , my_calculator.assignment, wtok )
 
-    def test_factor_sin(self):
+    def test_assingment_sin(self):
         line = 'sin( 10 )'
         wtok = TokenizeWrapper( line )
-        result = my_calculator.factor( wtok )
+        result = my_calculator.assignment( wtok )
         self.assertEqual( result , math.sin( 10 ) )
         
-    def test_factor_cos(self):
+    def test_assingment_cos(self):
         line = "cos(3.141592653589793)"
         wtok = TokenizeWrapper( line )
-        result = my_calculator.factor( wtok )
+        result = my_calculator.assignment( wtok )
         self.assertEqual( result , math.cos(math.pi))
 
-    def test_factor_log_negativ_input(self):
+    def test_assingment_log_negativ_input(self):
         line = "log( -1 )"
         wtok = TokenizeWrapper( line )
-        self.assertRaises( my_calculator.CalculatorException , my_calculator.factor, wtok )
+        self.assertRaises( my_calculator.CalculatorException , my_calculator.assignment, wtok )
 
-    def test_factor_log(self):
+    def test_assignment_log(self):
         line = "log( 2.718281828459045 )"
         wtok = TokenizeWrapper( line )
-        result = my_calculator.factor( wtok )
+        result = my_calculator.assignment(wtok)
         self.assertEqual( result , 1.0)
 
-    def test_factor_exp(self):
+    def test_assignment_exp(self):
         line = 'exp( 0 )'
         wtok = TokenizeWrapper( line )
-        result = my_calculator.factor( wtok )
+        result = my_calculator.assignment( wtok )
         self.assertEqual( result , 1.0)
 
-    def test_factor_minus(self):
+    def test_assignment_minus(self):
         line = "-(2+2)"
         wtok = TokenizeWrapper( line )
-        result = my_calculator.factor( wtok )
+        result = my_calculator.assignment( wtok )
         self.assertEqual( result , -4.0)        
+
+    def test_statement_dubbel_parantes_H(self):
+        line = "(1+3))"
+        wtok = TokenizeWrapper( line )
+        self.assertRaises(my_calculator.CalculatorException, my_calculator.statement , wtok)
 
     def test_statement_quit(self):
         line = "quit"

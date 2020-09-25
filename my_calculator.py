@@ -53,8 +53,8 @@ def term(wtok):
                 result = result / factor(wtok)
             except ZeroDivisionError as e:
                 print(e)
-            else:
-                break
+          ##else:
+                ##break
     return result
 
 
@@ -114,7 +114,11 @@ def statement(wtok):
     elif  wtok.is_at_end():
         return None
     else:
-        return assignment(wtok)
+        val = assignment(wtok)
+        if wtok.get_current() == ')':
+            raise CalculatorException(f"*** Error.  Fel inmatning '{wtok.get_current()}'")
+        return val
+
 
 
 def is_function(wtok):
