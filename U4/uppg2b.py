@@ -1,6 +1,5 @@
 import random
 import math
-import matplotlib.pyplot as plt
 import concurrent.futures as cf
 from time import perf_counter as pc
 
